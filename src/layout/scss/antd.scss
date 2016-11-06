@@ -1,0 +1,23 @@
+//覆盖或增加 ant.design 的样式
+.ant-table-tbody>tr>td{
+  vertical-align: middle;
+}
+
+.ant-btn-danger{
+  background: #f50;
+  border-color: #f50;
+  color:#fff;
+}
+
+.ant-table-tbody {
+  .action-btn {
+    margin-right: 10px;
+    
+    &:last-of-type {
+      margin-right: 0px;
+    }
+  }
+}
+.ant-form-item-with-help{
+  margin-bottom: 24px;
+}

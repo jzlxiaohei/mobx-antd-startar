@@ -1,0 +1,31 @@
+{
+  "extends": ["eslint:recommended","plugin:react/recommended"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "no-console": 0,
+    "no-debugger": 0,
+    "semi": 0,
+    "array-bracket-spacing": 0,
+    "comma-dangle": 0,
+    "react/jsx-space-before-closing": 0,
+    "react/prefer-stateless-function": 0,
+    "react/no-multi-comp": 0,
+    "arrow-body-style": 0,
+    "react/jsx-closing-bracket-location": 0,
+    "react/jsx-sort-porps":0,
+    "react/display-name":0
+  },
+  "plugins": [
+    "react"
+  ]
+}
