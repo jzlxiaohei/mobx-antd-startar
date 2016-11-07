@@ -38,6 +38,46 @@
 10. 线上的`main.js`发布时，没有使用文件hash的方式命名，而是加了git的commit 和 日期等信息。
 因为单文件，又是后台项目，没必要做这样的缓存，紧急情况下，迅速确认线上版本更重要。
 
+#目录结构说明
+
+## 最外层： 
+1. `scripts`里是一些发布时需要使用的脚本
+2. `static` 里已经打包好的 react相关的文件 和 antd 文件。 具体的打包脚本见 [prebuild-vendor](https://github.com/jzlxiaohei/prebuild-vendor)
+
+其他的几个含义都很明确。
+
+## src
+
+一. 开发的基本思路，是以页面为核心开发。
+`pages`里是每个页面自己的代码，确保隔离性。比如 `pages/user/list`文件夹下，应该只有UserList页面需要的代码。一个页面一般有
+
+1. 入口文件 比如 UserList.jsx
+2. 入口文件需要用到的一些子组件，以`_`开通的jsx文件
+3. models
+4. scss
+
+等等。
+
+二. 运行过程
+
+ `main.js` render App组件（`App.jsx`），App只是简单返回`react-router`组件。注意，里面设置了`mobx`使用严格模式(userStrict)。
+ 路由的定义在`src/routes`文件下,使用`Plain Routes`的方式，[见react-router文档](https://github.com/ReactTraining/react-router/blob/master/docs/guides/RouteConfiguration.md)
+ 这样的好处，以后如果加入权限的控制，可以直接把`Plain Routes`里的配置删掉。
+ 
+ `routes/index.js`会引用`src/Layout`组件，是所有页面公用的Layout，提供了左侧导航栏，全局loading等功能。
+ 
+三. 其他文件说明
+
+`components`: 公共组件.
+   
+`config`: 配置文件，特别是api的配置。
+   
+`src/infrastructure`: 基础设施，比较通用的东西，迭代稳定后，应该是可以发布到npm上，各项目公用的lib.
+   `makeObservable` 提供两个方法，一个用来给对象添加可以可观察的熟悉，一个用来添加几个常用的@action方法（因为使用的严格模式），用来set属性
+   
+`src/models`: 具有通用性的models，和 pages级的 models 相区别
+
+
 
 
  
