@@ -60,7 +60,10 @@
 
 二. 运行过程
 
- `main.js` render App组件（`App.jsx`），App只是简单返回`react-router`组件。注意，里面设置了`mobx`使用严格模式(userStrict)。
+ `main.js` render App组件（`App.jsx`). 注意，里面设置了`mobx`使用严格模式(userStrict)。
+ 
+ App只是简单返回`react-router`组件。
+ 
  路由的定义在`src/routes`文件下,使用`Plain Routes`的方式，[见react-router文档](https://github.com/ReactTraining/react-router/blob/master/docs/guides/RouteConfiguration.md)
  这样的好处，以后如果加入权限的控制，可以直接把`Plain Routes`里的配置删掉。
  
