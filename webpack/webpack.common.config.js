@@ -21,7 +21,7 @@ if (isProduction) {
     '/static/react-dom-router-addons.js': '/static/react-dom-router-addons.min.js',  // use min for production
     '/static/antd.min.js': '/static/antd.min.js',
     '/static/antd.min.css': '/static/antd.min.css',
-    '/assets/main.js': '/assets/main-' + dateStr + '-' + commit + '.js'
+    '/assets/main.js': output_filename.replace('[name]','main')
   };
   require('../scripts/processHtml')(assetsReplaceMap);
 }
