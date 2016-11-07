@@ -24,7 +24,7 @@
 0. `react-hot-loader` 对于组件的更改，并不生效，看issue, 也没啥好的解决方法。 改style文件，可以即时生效
 1. 左侧导航栏，在`src/layout/NavConfig`中配置，可以收起和打开，并把配置保持在localStorage中
 2. 使用`axios`进行ajax请求，并包装了一个有一定通用性的工具类`src/utils/ajax`. config 文件下的js文件，会根据环境变量，选择一个编译（见webpack配置）。可以在这里配置不同环境的api
-3. 我们使用完全的前后端分离开发方式，后端提供可跨越的api接口。开发时，可以自己mock api. 
+3. 我们使用完全的前后端分离开发方式，后端提供可跨域的api接口。开发时，可以自己mock api. 
 只要`mock_server/index.js`的文件有任何变动，`dev-server`都会重新加载 mock api. 不需要重启dev-server
 4. 暴露一些全局状态，见`src/models/global/index`. 
 项目跑起来后，可以在控制台中键入:`$globalStore.UiState.lockScreen()`加载全局loading,
