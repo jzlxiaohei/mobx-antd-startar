@@ -76,7 +76,8 @@
 `config`: 配置文件，特别是api的配置。
    
 `src/infrastructure`: 基础设施，比较通用的东西，迭代稳定后，应该是可以发布到npm上，各项目公用的lib.
-   `makeObservable` 提供两个方法，一个用来给对象添加可以可观察的熟悉，一个用来添加几个常用的@action方法（因为使用的严格模式），用来set属性
+`src/infrastructure/makeObservable` 提供两个方法，一个用来给对象添加可以可观察的属性，一个用来添加几个常用的@action方法（因为使用的严格模式），用来set属性
+ `src/infrastructure/makeObservable/validator` 一个简单的验证器
    
 `src/models`: 具有通用性的models，和 pages级的 models 相区别
 
