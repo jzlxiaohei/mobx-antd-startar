@@ -11,13 +11,13 @@ class BaseWithReq {
     wrapModelWithAssignMethods(this);
   }
 
-  request(options, assignData = true) {
+  request(options, needAssignData = true) {
     this.$assign({
       loading: true
     });
     return ajax(options)
       .then((res)=> {
-        this.reqSuccess(assignData);
+        this.reqSuccess(res.data, needAssignData);
         return res.data;
       }).catch((err)=> {
         this.reqError(err);
@@ -25,10 +25,10 @@ class BaseWithReq {
       });
   }
 
-  @action reqSuccess(assignData) {
+  @action reqSuccess(data, needAssignData) {
     this.$assign({ loading: false });
-    if (assignData) {
-      this.$assign(assignData);
+    if (needAssignData) {
+      this.$assign(data);
     }
   }
 

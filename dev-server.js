@@ -29,6 +29,8 @@ app.use(function (req, res, next) {
 });
 
 
+
+
 app.get('*', function (req, res, next) {
   const reqPath = req.path;
   if (isMockHttpPath(reqPath)) {
@@ -62,6 +64,9 @@ chokidar.watch(mock_server_path).on('all', (event, path) => {
     return true
   });
   require(mock_server_path)(app);
+// app.use('api/*',function(){
+//    // proxy to staging data
+// });
   console.log('mock server api reloaded!!!'.green)
 });
 
@@ -69,6 +74,13 @@ process.on("unhandledRejection", (err, p) => {
   console.error(err); // print the error
   console.error(err.stack)
 });
+
+
+process.on('uncaughtException', function (err) {
+  console.error(err); // print the error
+  console.error(err.stack)
+});
+
 
 var devPort = 9527;
 app.listen(devPort, function (err) {
