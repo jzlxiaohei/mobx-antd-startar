@@ -19,7 +19,7 @@ import forOwn from 'lodash/forOwn';
  * @param modelValue
  * @returns {*}
  */
-function checkInternal(checkFn, modelValue) {
+function checkInternal(checkFn, modelValue, model) {
   if (isArray(checkFn)) {
     let fnLength = checkFn.length;
     let resultString = '';
@@ -31,14 +31,14 @@ function checkInternal(checkFn, modelValue) {
 
     for (let i = 0; i < fnLength; i++) {
       const fn = checkFn[i];
-      const tempResult = fn(modelValue);
+      const tempResult = fn(modelValue, model);
       if (isString(tempResult)) {
         return (resultString || tempResult);
       }
     }
     return true;
   } else {
-    return checkFn(modelValue);
+    return checkFn(modelValue, model);
   }
 }
 
@@ -48,7 +48,7 @@ function addValidators(model, rules, lazy = false) {
     if ('$validState' in model) {
       throw new Error(`you should add rules only once`);
     }
-    forOwn(rules, (value, key)=> {
+    forOwn(rules, (value, key) => {
       if (!(key in model)) {
         throw new Error(`${key} in rules but not in model`)
       }
@@ -69,14 +69,14 @@ function addValidators(model, rules, lazy = false) {
     }
   });
 
-  model.$validCheck = ()=> {
+  model.$validCheck = () => {
     let isStateValid = true;
     const info = {};
-    forOwn(rules, (value, key)=> {
+    forOwn(rules, (value, key) => {
       const modelValue = model[key];
       const checkFn = rules[key];
 
-      const checkResult = checkInternal(checkFn, modelValue);
+      const checkResult = checkInternal(checkFn, modelValue, model);
       if (isString(checkResult)) {
         isStateValid = false;
         info[key] = checkResult;
@@ -88,11 +88,11 @@ function addValidators(model, rules, lazy = false) {
     };
   };
 
-  model.$isValid = ()=> {
-    for(const key in rules){
+  model.$isValid = () => {
+    for (const key in rules) {
       const modelValue = model[key];
       const checkFn = rules[key];
-      const checkResult = checkInternal(checkFn, modelValue);
+      const checkResult = checkInternal(checkFn, modelValue, model);
       if (isString(checkResult)) {
         return false;
       }
@@ -104,11 +104,11 @@ function addValidators(model, rules, lazy = false) {
     const computedFns = {};
 
     // if mobx(3.0) report error(waring), see https://github.com/mobxjs/mobx/issues/532
-    forOwn(rules, (value, key)=> {
-      computedFns[key] = ()=> {
+    forOwn(rules, (value, key) => {
+      computedFns[key] = () => {
         const modelValue = model[key];
         const checkFn = rules[key];
-        return model.$needTrackValidState && checkInternal(checkFn, modelValue);
+        return model.$needTrackValidState && checkInternal(checkFn, modelValue, model);
       };
     });
 
