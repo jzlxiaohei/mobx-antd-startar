@@ -45,12 +45,18 @@ function checkInternal(checkFn, modelValue, model) {
 function addValidators(model, rules, lazy = false) {
 
   if (process.env.NODE_ENV !== 'production') {
-    if ('$validState' in model) {
-      throw new Error(`you should add rules only once`);
-    }
+    const reservedFields = [
+      '$validState',
+      '$needTrackValidState'
+    ];
+    reservedFields.forEach(field => {
+      if (field in model) {
+        throw new Error(`${field} already in model. you might have added rules for this model or others use the same field.`);
+      }
+    });
     forOwn(rules, (value, key) => {
       if (!(key in model)) {
-        throw new Error(`${key} in rules but not in model`)
+        console.warn(`${key} in rules but not in model`)
       }
     });
   }
